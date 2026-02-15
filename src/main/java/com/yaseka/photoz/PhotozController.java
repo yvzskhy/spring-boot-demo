@@ -1,6 +1,7 @@
 package com.yaseka.photoz;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,17 @@ public class PhotozController {
         Photo photo = db.get(id);
         if (photo != null){
             return photo;
+        }
+        else {
+            throw new Throwable(String.valueOf(HttpStatus.NOT_FOUND));
+        }
+    }
+
+    @DeleteMapping("/photoz/{id}")
+    public Photo deletePhotoWithID(@PathVariable String id) throws Throwable {
+        Photo photo = db.get(id);
+        if (photo != null){
+            return db.remove(id);
         }
         else {
             throw new Throwable(String.valueOf(HttpStatus.NOT_FOUND));
