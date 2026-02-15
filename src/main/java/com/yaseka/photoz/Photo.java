@@ -1,9 +1,12 @@
 package com.yaseka.photoz;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class Photo {
 
     private String id;
 
+    @NotEmpty
     private String fileName;
 
     public Photo(String id, String fileName){
