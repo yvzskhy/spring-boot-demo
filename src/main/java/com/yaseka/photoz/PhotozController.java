@@ -1,16 +1,10 @@
 package com.yaseka.photoz;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController                 //Helping spring boot to understand our controller function
 public class PhotozController {
@@ -50,5 +44,12 @@ public class PhotozController {
         else {
             throw new Throwable(String.valueOf(HttpStatus.NOT_FOUND));
         }
+    }
+
+    @PostMapping("/photoz")
+    public Photo create(@RequestBody Photo photo) {
+        photo.setId(UUID.randomUUID().toString());
+        db.put(photo.getId(),photo);
+        return photo;
     }
 }
