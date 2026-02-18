@@ -12,10 +12,12 @@ import java.util.*;
 @RestController                 //Helping spring boot to understand our controller function
 public class PhotozController {
 
-    private Map<String,Photo> db = new HashMap<>(){{
-        put("1",new Photo("1","photo1"));
-        put("2",new Photo("2","photo2"));
-    }};
+    private PhotozService photozService;
+
+    public PhotozController(PhotozService photozService) {
+        this.photozService = photozService;
+    }
+
 
     @GetMapping("/")            //Specify the path which function will be activated
     public String greetings(){
@@ -24,12 +26,12 @@ public class PhotozController {
 
     @GetMapping("/photoz")
     public Collection<Photo> getPhotos(){
-        return db.values();
+        return photozService.getPhotos();
     }
 
     @GetMapping("/photoz/{id}")
     public Photo getPhotoWithID(@PathVariable String id) throws Throwable {
-        Photo photo = db.get(id);
+        Photo photo = photozService.get(id);
         if (photo != null){
             return photo;
         }
@@ -40,9 +42,9 @@ public class PhotozController {
 
     @DeleteMapping("/photoz/{id}")
     public Photo deletePhotoWithID(@PathVariable String id) throws Throwable {
-        Photo photo = db.get(id);
+        Photo photo = photozService.get(id);
         if (photo != null){
-            return db.remove(id);
+            return photozService.remove(id);
         }
         else {
             throw new Throwable(String.valueOf(HttpStatus.NOT_FOUND));
@@ -50,13 +52,7 @@ public class PhotozController {
     }
 
     @PostMapping("/photoz")
-    public Photo create(@RequestPart("data") MultipartFile photo) throws IOException {
-        Photo newPhoto = new Photo();
-        newPhoto.setId(UUID.randomUUID().toString());
-        newPhoto.setFileName(photo.getOriginalFilename());
-        newPhoto.setData(photo.getBytes());
-
-        db.put(newPhoto.getId(),newPhoto);
-        return newPhoto;
+    public Photo create(@RequestPart("data") MultipartFile file) throws IOException {
+        return photozService.save(file.getOriginalFilename(),file.getBytes());
     }
 }
