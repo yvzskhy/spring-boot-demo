@@ -3,8 +3,10 @@ package com.yaseka.photoz;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
 
+import java.io.IOException;
 import java.util.*;
 
 @RestController                 //Helping spring boot to understand our controller function
@@ -48,9 +50,13 @@ public class PhotozController {
     }
 
     @PostMapping("/photoz")
-    public Photo create(@RequestBody @Valid Photo photo) {
-        photo.setId(UUID.randomUUID().toString());
-        db.put(photo.getId(),photo);
-        return photo;
+    public Photo create(@RequestPart("data") MultipartFile photo) throws IOException {
+        Photo newPhoto = new Photo();
+        newPhoto.setId(UUID.randomUUID().toString());
+        newPhoto.setFileName(photo.getOriginalFilename());
+        newPhoto.setData(photo.getBytes());
+
+        db.put(newPhoto.getId(),newPhoto);
+        return newPhoto;
     }
 }
