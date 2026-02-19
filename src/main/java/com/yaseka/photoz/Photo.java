@@ -10,6 +10,8 @@ public class Photo {
     @NotEmpty
     private String fileName;
 
+    private String contentType;
+
     @JsonIgnore
     private byte[] data;
 
@@ -45,5 +47,13 @@ public class Photo {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 }

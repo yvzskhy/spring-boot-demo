@@ -1,5 +1,6 @@
 package com.yaseka.photoz;
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -27,13 +28,16 @@ public class PhotozService {
         return db.remove(id);
     }
 
-    public Photo save(String filename, byte[] data) {
+    public Photo save(String filename, @Nullable String contentType, byte[] data) {
         Photo photo = new Photo();
         photo.setId(UUID.randomUUID().toString());
         photo.setFileName(filename);
+        photo.setContentType(contentType);
         photo.setData(data);
 
-        return db.put(photo.getId(),photo);
+        db.put(photo.getId(),photo);
+
+        return photo;
 
     }
 

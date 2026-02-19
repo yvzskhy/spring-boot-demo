@@ -53,6 +53,6 @@ public class PhotozController {
 
     @PostMapping("/photoz")
     public Photo create(@RequestPart("data") MultipartFile file) throws IOException {
-        return photozService.save(file.getOriginalFilename(),file.getBytes());
+        return photozService.save(file.getOriginalFilename(),file.getContentType(),file.getBytes());
     }
 }
