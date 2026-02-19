@@ -1,10 +1,10 @@
-package com.yaseka.photoz;
+package com.yaseka.photoz.web;
 
-import jakarta.validation.Valid;
+import com.yaseka.photoz.model.Photo;
+import com.yaseka.photoz.service.PhotozService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
 
 import java.io.IOException;
 import java.util.*;

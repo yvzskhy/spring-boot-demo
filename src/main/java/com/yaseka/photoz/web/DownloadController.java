@@ -1,17 +1,17 @@
-package com.yaseka.photoz;
+package com.yaseka.photoz.web;
 
-import org.apache.coyote.Response;
+import com.yaseka.photoz.model.Photo;
+import com.yaseka.photoz.service.PhotozService;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class DownloadController {
 
-    private  PhotozService photozService;
+    private PhotozService photozService;
 
     public DownloadController(PhotozService photozService) {
         this.photozService = photozService;

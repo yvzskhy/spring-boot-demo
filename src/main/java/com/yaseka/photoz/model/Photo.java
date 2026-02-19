@@ -1,4 +1,4 @@
-package com.yaseka.photoz;
+package com.yaseka.photoz.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;

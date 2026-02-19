@@ -1,5 +1,6 @@
-package com.yaseka.photoz;
+package com.yaseka.photoz.service;
 
+import com.yaseka.photoz.model.Photo;
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.UUID;
 @Service
 public class PhotozService {
 
-    private Map<String,Photo> db = new HashMap<>(){{
+    private Map<String, Photo> db = new HashMap<>(){{
         put("1",new Photo("1","photo1"));
         put("2",new Photo("2","photo2"));
     }};
